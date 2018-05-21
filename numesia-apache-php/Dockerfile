@@ -1,8 +1,7 @@
 FROM php:7.1-apache
 
-RUN a2enmod rewrite
-
-RUN a2enmod ssl
+#Activation des modules apache
+RUN a2enmod rewrite ssl proxy proxy_http
 
 RUN apt-get update && apt-get install -y git subversion bash curl unzip vim
 
