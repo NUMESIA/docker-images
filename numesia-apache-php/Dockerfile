@@ -8,8 +8,11 @@ RUN apt-get update && apt-get install -y git subversion bash curl unzip vim supe
 #Ajout de PDO
 RUN docker-php-ext-install pdo pdo_mysql
 
+#Changement de timezone
+RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
+
 RUN echo "memory_limit=-1" > "$PHP_INI_DIR/conf.d/memory-limit.ini" \
- && echo "date.timezone=${PHP_TIMEZONE:-UTC}" > "$PHP_INI_DIR/conf.d/date_timezone.ini"
+ && echo "date.timezone=Europe/Paris" > "$PHP_INI_DIR/conf.d/date_timezone.ini"
 
 
 #Install de composer
