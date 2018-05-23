@@ -3,10 +3,10 @@ FROM php:7.1-apache
 #Activation des modules apache
 RUN a2enmod rewrite ssl proxy proxy_http
 
-RUN apt-get update && apt-get install -y git subversion bash curl unzip vim supervisor
+RUN apt-get update && apt-get install -y git subversion bash curl unzip vim supervisor bindfs
 
-#Ajout de PDO
-RUN docker-php-ext-install pdo pdo_mysql
+#Ajout de PDO & MySQLi
+RUN docker-php-ext-install pdo pdo_mysql mysqli && docker-php-ext-enable mysqli
 
 #Changement de timezone
 RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
