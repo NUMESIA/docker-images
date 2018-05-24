@@ -3,7 +3,7 @@ FROM php:7.1-apache
 #Activation des modules apache
 RUN a2enmod rewrite ssl proxy proxy_http
 
-RUN apt-get update && apt-get install -y git subversion bash curl unzip vim supervisor bindfs libmcrypt-dev
+RUN apt-get update && apt-get install -y git subversion bash curl unzip vim supervisor bindfs libmcrypt-dev g++
 
 #Ajout de PDO & MySQLi
 RUN docker-php-ext-install pdo pdo_mysql mysqli calendar mbstring mcrypt intl pcntl zip && docker-php-ext-enable mysqli
