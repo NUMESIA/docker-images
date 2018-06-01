@@ -46,9 +46,9 @@ RUN apt-get install -y zsh && chsh -s $(which zsh)
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 #Autocompletion git
-RUN TERM=xterm
+RUN export TERM="xterm"
 RUN curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh -o ~/.git-completion.zsh
 RUN echo " zstyle ':completion:*:*:git:*' script ~/.git-completion.zsh" > ~/.zshrc
 
 #Changement du prompt
-RUN PROMPT="%{$fg[red]%}DockerPHP{$reset_color%} ${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)"
+RUN export PROMPT="%{$fg[red]%}DockerPHP{$reset_color%} ${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)"
