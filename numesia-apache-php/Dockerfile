@@ -42,7 +42,7 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash && apt-get install -y n
 RUN npm install -g gulp
 
 #Install zsh
-RUN apt-get install zsh && chsh -s $(which zsh)
+RUN apt-get install -y zsh && chsh -s $(which zsh)
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 #Autocompletion git
