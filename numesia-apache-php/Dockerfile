@@ -3,10 +3,10 @@ FROM php:7.1-apache
 #Activation des modules apache
 RUN a2enmod rewrite ssl proxy proxy_http
 
-RUN apt-get update && apt-get install -y git subversion bash curl unzip vim supervisor bindfs libmcrypt-dev zlib1g-dev libicu-dev g++ gnupg
+RUN apt-get update && apt-get install -y git subversion bash curl unzip vim supervisor bindfs libmcrypt-dev zlib1g-dev libicu-dev g++ gnupg libxml2-dev
 
 #Ajout de PDO & MySQLi
-RUN docker-php-ext-install pdo pdo_mysql mysqli calendar mbstring mcrypt intl pcntl zip && docker-php-ext-enable mysqli
+RUN docker-php-ext-install pdo pdo_mysql mysqli calendar mbstring mcrypt intl pcntl zip && docker-php-ext-enable mysqli soap
 
 #Changement de timezone
 RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
@@ -42,13 +42,13 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash && apt-get install -y n
 RUN npm install -g gulp
 
 #Install zsh
-RUN apt-get install -y zsh && chsh -s $(which zsh)
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+#RUN apt-get install -y zsh && chsh -s $(which zsh)
+#RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 #Autocompletion git
-RUN export TERM="xterm"
-RUN curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh -o ~/.git-completion.zsh
-RUN echo " zstyle ':completion:*:*:git:*' script ~/.git-completion.zsh" > ~/.zshrc
+#RUN export TERM="xterm"
+#RUN curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh -o ~/.git-completion.zsh
+#RUN echo " zstyle ':completion:*:*:git:*' script ~/.git-completion.zsh" > ~/.zshrc
 
 #Changement du prompt
-RUN export PROMPT="%{$fg[red]%}DockerPHP{$reset_color%} ${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)"
+#RUN export PROMPT="%{$fg[red]%}DockerPHP{$reset_color%} ${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)"
