@@ -6,7 +6,7 @@ RUN a2enmod rewrite ssl proxy proxy_http
 RUN apt-get update && apt-get install -y git subversion bash curl unzip vim supervisor bindfs libmcrypt-dev zlib1g-dev libicu-dev g++ gnupg libxml2-dev
 
 #Ajout de PDO & MySQLi
-RUN docker-php-ext-install pdo pdo_mysql mysqli calendar mbstring mcrypt intl pcntl zip soap 
+RUN docker-php-ext-install pdo pdo_mysql mysqli calendar mbstring mcrypt intl pcntl zip soap sockets
 RUN docker-php-ext-enable mysqli
 
 #Changement de timezone
