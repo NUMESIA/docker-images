@@ -3,16 +3,33 @@ FROM php:7.1-apache
 #Activation des modules apache
 RUN a2enmod rewrite ssl proxy proxy_http
 
-RUN apt-get update && apt-get install -y git subversion bash curl unzip vim supervisor bindfs libmcrypt-dev zlib1g-dev libicu-dev g++ gnupg libxml2-dev libfontconfig libxrender1 wkhtmltopdf mysql-client
+RUN apt-get update && apt-get install -y \
+git \
+subversion \
+bash \ 
+curl \
+unzip \ 
+vim \ 
+supervisor \
+bindfs \
+libmcrypt-dev \ 
+zlib1g-dev \ 
+libicu-dev \
+g++ \
+gnupg \
+libxml2-dev \
+libfontconfig \
+libxrender1 \
+wkhtmltopdf \
+mysql-client
 
 #Ajout de PDO & MySQLi
-RUN docker-php-ext-install pdo pdo_mysql mysqli calendar mbstring mcrypt intl pcntl zip soap sockets
-RUN docker-php-ext-enable mysqli
+RUN docker-php-ext-install pdo pdo_mysql mysqli calendar mbstring mcrypt intl pcntl zip soap sockets \
+ && docker-php-ext-enable mysqli
 
 #Changement de timezone
-RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
-
-RUN echo "memory_limit=-1" > "$PHP_INI_DIR/conf.d/memory-limit.ini" \
+RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime \
+ && echo "memory_limit=-1" > "$PHP_INI_DIR/conf.d/memory-limit.ini" \
  && echo "date.timezone=Europe/Paris" > "$PHP_INI_DIR/conf.d/date_timezone.ini"
 
 
