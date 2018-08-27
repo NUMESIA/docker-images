@@ -21,7 +21,8 @@ libxml2-dev \
 libfontconfig \
 libxrender1 \
 wkhtmltopdf \
-mysql-client
+mysql-client \
+crond
 
 #Ajout de PDO & MySQLi
 RUN docker-php-ext-install pdo pdo_mysql mysqli calendar mbstring mcrypt intl pcntl zip soap sockets \
