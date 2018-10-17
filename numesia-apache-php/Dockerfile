@@ -23,7 +23,7 @@ libxrender1 \
 wkhtmltopdf \
 mysql-client \
 cron \
-ping \
+inetutils-ping \
 telnet
 
 #Ajout de PDO & MySQLi
