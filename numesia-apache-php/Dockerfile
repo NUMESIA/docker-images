@@ -6,14 +6,14 @@ RUN a2enmod rewrite ssl proxy proxy_http
 RUN apt-get update && apt-get install -y \
 git \
 subversion \
-bash \ 
+bash \
 curl \
-unzip \ 
-vim \ 
+unzip \
+vim \
 supervisor \
 bindfs \
-libmcrypt-dev \ 
-zlib1g-dev \ 
+libmcrypt-dev \
+zlib1g-dev \
 libicu-dev \
 g++ \
 gnupg \
@@ -22,7 +22,9 @@ libfontconfig \
 libxrender1 \
 wkhtmltopdf \
 mysql-client \
-cron
+cron \
+ping \
+telnet
 
 #Ajout de PDO & MySQLi
 RUN docker-php-ext-install pdo pdo_mysql mysqli calendar mbstring mcrypt intl pcntl zip soap sockets \
