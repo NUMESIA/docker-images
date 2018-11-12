@@ -1,7 +1,7 @@
 FROM php:7.1-apache
 
 #Activation des modules apache
-RUN a2enmod rewrite ssl proxy proxy_http
+RUN a2enmod rewrite ssl proxy proxy_http headers
 
 RUN apt-get update && apt-get install -y \
 git \
@@ -61,6 +61,3 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash && apt-get install -y n
 
 #Install de Gulp
 RUN npm install -g gulp
-
-#Install du module headers
-RUN a2enmod headers
