@@ -62,14 +62,5 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash && apt-get install -y n
 #Install de Gulp
 RUN npm install -g gulp
 
-#Install zsh
-#RUN apt-get install -y zsh && chsh -s $(which zsh)
-#RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-#Autocompletion git
-#RUN export TERM="xterm"
-#RUN curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh -o ~/.git-completion.zsh
-#RUN echo " zstyle ':completion:*:*:git:*' script ~/.git-completion.zsh" > ~/.zshrc
-
-#Changement du prompt
-#RUN export PROMPT="%{$fg[red]%}DockerPHP{$reset_color%} ${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)"
+#Install du module headers
+RUN a2enmod headers
