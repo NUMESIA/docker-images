@@ -26,8 +26,11 @@ cron \
 inetutils-ping \
 telnet
 
+#Ajout de memcached
+RUN pecl install memcached
+
 #Ajout de PDO & MySQLi
-RUN docker-php-ext-install pdo pdo_mysql mysqli calendar mbstring mcrypt intl pcntl zip soap sockets \
+RUN docker-php-ext-install pdo pdo_mysql mysqli calendar mbstring mcrypt intl pcntl zip soap sockets memcached \
  && docker-php-ext-enable mysqli
 
 #Changement de timezone
