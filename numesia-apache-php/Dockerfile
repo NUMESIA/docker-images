@@ -1,4 +1,4 @@
-FROM php:7.1-apache
+FROM php:7.0-apache
 
 #Activation des modules apache
 RUN a2enmod rewrite ssl proxy proxy_http headers
