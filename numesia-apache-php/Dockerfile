@@ -27,12 +27,20 @@ inetutils-ping \
 libmemcached-dev memcached \
 telnet
 
-#Ajout de memcached
-RUN printf "no --disable-memcached-sasl\n" | pecl install memcached \
-&& echo "extension=memcached.so" > "$PHP_INI_DIR/conf.d/memcached.ini"
+
 
 #Ajout de igbinary (pour la serialisation de memcached)
 RUN pecl install igbinary && echo "extension=igbinary.so" > "$PHP_INI_DIR/conf.d/igbinary.ini" && && echo "memcached.serializer=igbinary." >> "$PHP_INI_DIR/conf.d/memcached.ini"
+
+#Ajout de memcached
+#RUN printf "no --disable-memcached-sasl\n" | pecl install memcached \
+#&& echo "extension=memcached.so" > "$PHP_INI_DIR/conf.d/memcached.ini"
+RUN pecl install --onlyreqdeps --nobuild memcached \
+&& cd "$(pecl config-get temp_dir)/memcached" \
+&& phpize \
+&& ./configure --enable-memcached-igbinary --disable-memcached-sasl \
+&& make && make install \
+& echo "extension=memcached.so" > "$PHP_INI_DIR/conf.d/memcached.ini"
 
 #Ajout de PDO & MySQLi
 RUN docker-php-ext-install pdo pdo_mysql mysqli calendar mbstring mcrypt intl pcntl zip soap sockets \
