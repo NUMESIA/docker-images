@@ -50,6 +50,9 @@ RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime \
  && echo "memory_limit=-1" > "$PHP_INI_DIR/conf.d/memory-limit.ini" \
  && echo "date.timezone=Europe/Paris" > "$PHP_INI_DIR/conf.d/date_timezone.ini"
 
+#Activation OpenSSL
+RUN echo "extension=php_openssl.so" > "$PHP_INI_DIR/conf.d/openssl.ini"
+
 #Install de composer
 ENV PATH "/composer/vendor/bin:$PATH"
 ENV COMPOSER_ALLOW_SUPERUSER 1
