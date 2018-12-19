@@ -25,14 +25,14 @@ mysql-client \
 cron \
 inetutils-ping \
 libmemcached-dev memcached \
+libfreetype6-dev \
+libjpeg62-turbo-dev \
 telnet
 
 #Ajout de igbinary (pour la serialisation de memcached)
 RUN pecl install igbinary && echo "extension=igbinary.so" > "$PHP_INI_DIR/conf.d/igbinary.ini" 
 
 #Ajout de memcached
-#RUN printf "no --disable-memcached-sasl\n" | pecl install memcached \
-#&& echo "extension=memcached.so" > "$PHP_INI_DIR/conf.d/memcached.ini"
 RUN pecl install --onlyreqdeps --nobuild memcached \
 && cd "$(pecl config-get temp_dir)/memcached" \
 && phpize \
@@ -43,7 +43,9 @@ RUN pecl install --onlyreqdeps --nobuild memcached \
 
 #Ajout de PDO & MySQLi
 RUN docker-php-ext-install pdo pdo_mysql mysqli calendar mbstring mcrypt intl pcntl zip soap sockets \
- && docker-php-ext-enable mysqli
+ && docker-php-ext-enable mysqli \
+ && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+ && docker-php-ext-install -j$(nproc) gd
 
 #Changement de timezone
 RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime \
