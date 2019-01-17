@@ -27,6 +27,8 @@ inetutils-ping \
 libmemcached-dev memcached \
 libfreetype6-dev \
 libjpeg62-turbo-dev \
+libjpeg-dev \
+libpng-dev \
 telnet
 
 #Ajout de igbinary (pour la serialisation de memcached)
