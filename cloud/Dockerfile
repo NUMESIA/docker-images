@@ -21,7 +21,6 @@ libxml2-dev \
 libfontconfig \
 libxrender1 \
 libcurl4-openssl-dev pkg-config libssl-dev \
-mysql-client \
 cron \
 inetutils-ping \
 libmemcached-dev memcached \
@@ -33,9 +32,6 @@ RUN pecl install igbinary && echo "extension=igbinary.so" > "$PHP_INI_DIR/conf.d
 ## Add mongo driver
 RUN pecl install mongodb && docker-php-ext-enable mongodb
 
-#Ajout de memcached
-#RUN printf "no --disable-memcached-sasl\n" | pecl install memcached \
-#&& echo "extension=memcached.so" > "$PHP_INI_DIR/conf.d/memcached.ini"
 RUN pecl install --onlyreqdeps --nobuild memcached \
 && cd "$(pecl config-get temp_dir)/memcached" \
 && phpize \
@@ -44,9 +40,8 @@ RUN pecl install --onlyreqdeps --nobuild memcached \
 && echo "extension=memcached.so" > "$PHP_INI_DIR/conf.d/memcached.ini" \
 && echo "memcached.serializer=igbinary" >> "$PHP_INI_DIR/conf.d/memcached.ini"
 
-#Ajout de PDO & MySQLi
-RUN docker-php-ext-install pdo pdo_mysql mysqli calendar mbstring mcrypt intl pcntl zip soap sockets \
- && docker-php-ext-enable mysqli
+#Ajout d'extension php'
+RUN docker-php-ext-install calendar mbstring mcrypt intl pcntl zip soap sockets
 
 #Changement de timezone
 RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime \
