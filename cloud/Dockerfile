@@ -17,6 +17,8 @@ zlib1g-dev \
 libicu-dev \
 g++ \
 gnupg \
+libpng-dev \
+libjpeg-dev \
 libxml2-dev \
 libfontconfig \
 libxrender1 \
@@ -41,8 +43,11 @@ RUN pecl install --onlyreqdeps --nobuild memcached \
 && echo "memcached.serializer=igbinary" >> "$PHP_INI_DIR/conf.d/memcached.ini"
 
 #Ajout d'extension php'
-RUN docker-php-ext-install gd calendar mbstring mcrypt intl pcntl zip soap sockets
-
+RUN docker-php-ext-install gd calendar mbstring mcrypt intl pcntl zip soap sockets \
+&& docker-php-ext-configure gd \
+        --with-gd \
+        --with-png-dir=/usr/include/ \
+        --with-jpeg-dir=/usr/include/
 #Changement de timezone
 RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime \
  && echo "memory_limit=-1" > "$PHP_INI_DIR/conf.d/memory-limit.ini" \
