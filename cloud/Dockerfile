@@ -41,7 +41,15 @@ RUN pecl install --onlyreqdeps --nobuild memcached \
 && echo "memcached.serializer=igbinary" >> "$PHP_INI_DIR/conf.d/memcached.ini"
 
 #Ajout d'extension php'
-RUN docker-php-ext-install calendar mbstring mcrypt intl pcntl zip soap sockets
+RUN docker-php-ext-install gd calendar mbstring mcrypt intl pcntl zip soap sockets
+
+RUN apt-get update && apt-get install -y \
+libpng \
+libpng-dev \
+libjpeg-turbo \
+libjpeg-turbo-dev \
+libjpeg \
+libtool
 
 #Changement de timezone
 RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime \
