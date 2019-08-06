@@ -43,11 +43,13 @@ RUN pecl install --onlyreqdeps --nobuild memcached \
 && echo "memcached.serializer=igbinary" >> "$PHP_INI_DIR/conf.d/memcached.ini"
 
 #Ajout d'extension php'
-RUN docker-php-ext-install gd calendar mbstring mcrypt intl pcntl zip soap sockets \
-&& docker-php-ext-configure gd \
+RUN docker-php-ext-configure gd \
         --with-gd \
         --with-png-dir=/usr/include/ \
         --with-jpeg-dir=/usr/include/
+
+RUN docker-php-ext-install gd calendar mbstring mcrypt intl pcntl zip soap sockets
+
 #Changement de timezone
 RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime \
  && echo "memory_limit=-1" > "$PHP_INI_DIR/conf.d/memory-limit.ini" \
