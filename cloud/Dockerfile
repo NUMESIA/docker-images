@@ -43,14 +43,6 @@ RUN pecl install --onlyreqdeps --nobuild memcached \
 #Ajout d'extension php'
 RUN docker-php-ext-install gd calendar mbstring mcrypt intl pcntl zip soap sockets
 
-RUN apt-get update && apt-get install -y \
-libpng \
-libpng-dev \
-libjpeg-turbo \
-libjpeg-turbo-dev \
-libjpeg \
-libtool
-
 #Changement de timezone
 RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime \
  && echo "memory_limit=-1" > "$PHP_INI_DIR/conf.d/memory-limit.ini" \
