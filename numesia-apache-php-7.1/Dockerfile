@@ -29,6 +29,7 @@ libfreetype6-dev \
 libjpeg62-turbo-dev \
 libjpeg-dev \
 libpng-dev \
+libssl1.0-dev \
 telnet
 
 #Ajout de igbinary (pour la serialisation de memcached)
