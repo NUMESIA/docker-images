@@ -21,7 +21,7 @@ libxml2-dev \
 libfontconfig \
 libxrender1 \
 wkhtmltopdf \
-mysql-client \
+default-mysql-client \
 cron \
 inetutils-ping \
 libmemcached-dev memcached \
