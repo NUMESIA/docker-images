@@ -65,8 +65,16 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 && rm composer-setup.php \
 && composer --ansi --version --no-interaction
 
- #Install de Node
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash && apt-get install -y nodejs
+ #Install de nvm et node
+ENV NVM_DIR /root/.nvm
+ENV NODE_VERSION 8.16.0
 
-#Install de Gulp
+RUN cd /root && mkdir /root/.nvm && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+
+
+# ajout de node et npm au path
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+
+# install de Gulp
 RUN npm install -g gulp
