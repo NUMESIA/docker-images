@@ -33,7 +33,7 @@ libssl-dev \
 telnet
 
 #Ajout de igbinary (pour la serialisation de memcached)
-RUN pecl install igbinary && echo "extension=igbinary.so" > "$PHP_INI_DIR/conf.d/igbinary.ini" 
+RUN pecl install igbinary && echo "extension=igbinary.so" > "$PHP_INI_DIR/conf.d/igbinary.ini"
 
 #Ajout de memcached
 RUN pecl install --onlyreqdeps --nobuild memcached \
@@ -78,3 +78,9 @@ ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
 # install de Gulp
 RUN npm install -g gulp
+
+#Compatibilité avec vieux TLS
+RUN apt-get update -yqq \
+    && apt-get install -y --no-install-recommends openssl \
+    && sed -i 's,^\(MinProtocol[ ]*=\).*,\1'TLSv1.0',g' /etc/ssl/openssl.cnf \
+    && sed -i 's,^\(CipherString[ ]*=\).*,\1'DEFAULT@SECLEVEL=1',g' /etc/ssl/openssl.cnf
