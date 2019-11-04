@@ -30,7 +30,8 @@ libjpeg62-turbo-dev \
 libjpeg-dev \
 libpng-dev \
 libssl-dev \
-telnet
+telnet \
+locales
 
 #Ajout de igbinary (pour la serialisation de memcached)
 RUN pecl install igbinary && echo "extension=igbinary.so" > "$PHP_INI_DIR/conf.d/igbinary.ini"
@@ -54,6 +55,14 @@ RUN docker-php-ext-install pdo pdo_mysql mysqli calendar mbstring mcrypt intl pc
 RUN ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime \
  && echo "memory_limit=-1" > "$PHP_INI_DIR/conf.d/memory-limit.ini" \
  && echo "date.timezone=Europe/Paris" > "$PHP_INI_DIR/conf.d/date_timezone.ini"
+ 
+#Changement de locale
+RUN sed -i 's/# fr_FR.UTF-8 UTF-8/fr_FR.UTF-8 UTF-8/g' /etc/locale.gen \
+ && locale-gen fr_FR.UTF-8
+
+ENV LANG fr_FR.UTF-8
+ENV LANGUAGE fr_FR:fr
+ENV LC_ALL fr_FR.UTF-8
 
 #Install de composer
 ENV PATH "/composer/vendor/bin:$PATH"
